@@ -110,21 +110,17 @@ Resposta de Sucesso: Retorna um token que deverá ser usado para acessar rotas p
 🤝 Como Ajudar (Próximos Passos)
 O foco agora é expandir a API para gerenciar os dados do dashboard. Algumas tarefas que precisamos fazer:
 
-Criar o CRUD de Produtos:
+Criar o CRUD de Clientes/Financeiro:
 
-POST /api/products (Criar produto)
+POST /api/client (Criar cliente)
+GET /api/clients (Listar todos os clientes)
 
-GET /api/products (Listar todos os produtos)
+GET /api/client/:id (Buscar um cliente)
 
-GET /api/products/:id (Buscar um produto)
+PUT /api/client/:id (Atualizar os dados de um cliente)
 
-PUT /api/products/:id (Atualizar um produto)
+DELETE /api/client/:id (Deletar um cliente)
 
-DELETE /api/products/:id (Deletar um produto)
-
-Criar as Rotas de Pedidos:
-
-Precisamos de rotas para gerenciar os status dos pedidos que definimos no front-end (Aberto, Em produção, Finalizado, etc.).
 
 Criar um Middleware de Autenticação:
 
