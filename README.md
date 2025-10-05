@@ -1,8 +1,4 @@
-Claro! Preparar um README.md com as rotas existentes e as próximas tarefas é a maneira perfeita de organizar o trabalho para o time.
 
-Aqui está um modelo de README.md simples e direto que você pode colocar na raiz do seu projeto back-end. Ele contém as rotas que já fizemos e detalha as novas tarefas para os módulos de Financeiro e Preços.
-
-Você pode copiar e colar todo o conteúdo abaixo em um arquivo chamado README.md.
 
 API REST do NevoHUB System
 Esta é a API central para o sistema NevoHUB. Abaixo estão os endpoints disponíveis e as próximas tarefas de desenvolvimento.
