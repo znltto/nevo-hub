@@ -1,129 +1,126 @@
-Bem-vindo ao back-end do NevoHUB! Esta é uma API RESTful construída com Node.js, Express e SQLite, responsável por toda a lógica de negócio, gerenciamento de dados e autenticação de usuários da aplicação.
+Claro! Preparar um README.md com as rotas existentes e as próximas tarefas é a maneira perfeita de organizar o trabalho para o time.
 
-🚀 Tecnologias Utilizadas
-Node.js: Ambiente de execução JavaScript no servidor.
+Aqui está um modelo de README.md simples e direto que você pode colocar na raiz do seu projeto back-end. Ele contém as rotas que já fizemos e detalha as novas tarefas para os módulos de Financeiro e Preços.
 
-Express.js: Framework para criação do servidor e das rotas da API.
+Você pode copiar e colar todo o conteúdo abaixo em um arquivo chamado README.md.
 
-SQLite3: Banco de dados SQL leve e baseado em arquivo.
+API REST do NevoHUB System
+Esta é a API central para o sistema NevoHUB. Abaixo estão os endpoints disponíveis e as próximas tarefas de desenvolvimento.
 
-jsonwebtoken (JWT): Para gerar tokens de autenticação seguros.
+Endpoints Atuais
+Autenticação e Usuários
+Criar Usuário
 
-bcryptjs: Para criptografar senhas de forma segura.
+Método: POST
 
-CORS: Para permitir a comunicação entre este back-end e o front-end React.
+URL: /api/users
 
-Nodemon: Para reiniciar o servidor automaticamente durante o desenvolvimento.
-
-📋 Pré-requisitos
-Antes de começar, garanta que você tenha instalado:
-
-Node.js (versão 20.x ou superior)
-
-npm (geralmente vem com o Node.js)
-
-Uma ferramenta de teste de API como Insomnia, Postman ou a extensão Thunder Client do VS Code.
-
-⚙️ Guia de Instalação e Configuração
-Siga estes passos para ter o ambiente de desenvolvimento rodando na sua máquina:
-
-1. Clone o Repositório:
-
-Bash
-
-git clone <URL_DO_SEU_REPOSITORIO_GITHUB>
-2. Navegue até a Pasta do Backend:
-
-Bash
-
-cd NevoHUB-System/back-end
-3. Instale as Dependências:
-
-Bash
-
-npm install
-4. Crie o Arquivo de Variáveis de Ambiente:
-Crie um arquivo chamado .env na raiz da pasta back-end e adicione a seguinte linha. Este segredo é usado para assinar os tokens de autenticação.
-
-JWT_SECRET=QUALQUER_FRASE_LONGA_E_SECRETA_AQUI
-Importante: O arquivo .env nunca deve ser enviado para o GitHub!
-
-5. Inicialize o Banco de Dados:
-Este comando cria o arquivo do SQLite e a tabela de usuários. Execute apenas uma vez.
-
-Bash
-
-node src/database/init-db.js
-▶️ Rodando o Servidor
-Para iniciar o servidor em modo de desenvolvimento (com reinicialização automática), use:
-
-Bash
-
-npm run dev
-Você verá a mensagem: Servidor da API rodando na porta 3333.
-
-📂 Estrutura do Projeto
-src/: Contém todo o código fonte da aplicação.
-
-controllers/: A lógica de negócio (o que fazer quando uma rota é acessada).
-
-routes/: A definição dos endpoints da API (ex: /users, /login).
-
-database/: Configuração e inicialização do banco de dados SQLite.
-
-app.js: Configurações do Express (middlewares, rotas, etc.).
-
-server.js: O ponto de entrada que inicia o servidor.
-
-Endpoints Já Criados
-Atualmente, temos dois endpoints funcionais para autenticação:
-
-1. Criar Usuário
-Rota: POST /api/users
-
-Descrição: Cria um novo usuário no banco de dados.
-
-Corpo (Body) da Requisição (JSON):
+Corpo (JSON):
 
 JSON
 
 {
-    "username": "nome_de_usuario",
-    "password": "uma_senha_forte",
-    "role": "ADMINISTRADOR" // ou "FUNCIONARIO"
+    "username": "nome_usuario",
+    "password": "sua_senha",
+    "role": "ADMINISTRADOR" 
 }
-2. Fazer Login
-Rota: POST /api/login
+Fazer Login
 
-Descrição: Autentica um usuário e retorna um token JWT.
+Método: POST
 
-Corpo (Body) da Requisição (JSON):
+URL: /api/login
+
+Corpo (JSON):
 
 JSON
 
 {
-    "username": "nome_de_usuario",
-    "password": "uma_senha_forte"
+    "username": "nome_usuario",
+    "password": "sua_senha"
 }
-Resposta de Sucesso: Retorna um token que deverá ser usado para acessar rotas protegidas.
+Clientes
+Criar Cliente: POST /api/clients
 
-🤝 Como Ajudar (Próximos Passos)
-O foco agora é expandir a API para gerenciar os dados do dashboard. Algumas tarefas que precisamos fazer:
+Listar Todos os Clientes: GET /api/clients
 
-Criar o CRUD de Clientes/Financeiro:
+Buscar um Cliente por ID: GET /api/clients/:id
 
-POST /api/client (Criar cliente)
-GET /api/clients (Listar todos os clientes)
+Atualizar um Cliente: PUT /api/clients/:id
 
-GET /api/client/:id (Buscar um cliente)
+Excluir um Cliente: DELETE /api/clients/:id
 
-PUT /api/client/:id (Atualizar os dados de um cliente)
+Endereços
+Criar Endereço para um Cliente: POST /api/addresses
 
-DELETE /api/client/:id (Deletar um cliente)
+Listar Endereços de um Cliente: GET /api/clients/:clientId/addresses
 
+Atualizar um Endereço: PUT /api/addresses/:id
 
-Criar um Middleware de Autenticação:
+Excluir um Endereço: DELETE /api/addresses/:id
 
-Precisamos criar uma função que verifique o token JWT em cada requisição para as novas rotas (produtos, pedidos, etc.), garantindo que apenas usuários logados possam acessá-las.
+📝 Próximos Passos / Tarefas (Backend)
+O foco agora é construir os módulos de Financeiro e Preços.
 
-Qualquer dúvida, é só perguntar!
+1. Módulo Financeiro
+O objetivo é criar um sistema para registrar todas as transações financeiras (ganhos e despesas).
+
+Banco de Dados (Tabela transactions)
+Adicionar a seguinte tabela ao src/database/init-db.js:
+
+SQL
+
+CREATE TABLE IF NOT EXISTS transactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    description TEXT NOT NULL,
+    amount INTEGER NOT NULL, -- Valor em centavos para evitar problemas com ponto flutuante
+    type TEXT NOT NULL CHECK(type IN ('INCOME', 'EXPENSE')), -- 'INCOME' para ganhos, 'EXPENSE' para despesas
+    transaction_date DATE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+Nota: É uma boa prática armazenar valores monetários como inteiros (centavos) para garantir a precisão dos cálculos. Por exemplo, R$ 19,99 seria armazenado como 1999.
+
+API Endpoints a Serem Criados
+POST /api/transactions: Cria uma nova transação (ganho ou despesa).
+
+GET /api/transactions: Lista todas as transações. Pode incluir filtros por mês e ano (ex: /api/transactions?month=10&year=2025).
+
+PUT /api/transactions/:id: Atualiza uma transação.
+
+DELETE /api/transactions/:id: Exclui uma transação.
+
+2. Módulo de Preços de Produtos
+O objetivo é criar uma tabela simples para associar um SKU de produto a um preço.
+
+Banco de Dados (Tabela prices)
+Adicionar a seguinte tabela ao src/database/init-db.js:
+
+SQL
+
+CREATE TABLE IF NOT EXISTS prices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sku TEXT UNIQUE NOT NULL,
+    price REAL NOT NULL -- Usando REAL para valores com casas decimais
+);
+API Endpoints a Serem Criados
+POST /api/prices: Adiciona um novo preço para um SKU.
+
+GET /api/prices: Lista todos os preços e SKUs.
+
+GET /api/prices/:sku: Busca o preço de um SKU específico.
+
+PUT /api/prices/:sku: Atualiza o preço de um SKU.
+
+DELETE /api/prices/:sku: Remove o preço de um SKU.
+
+Como Contribuir
+Atualize o arquivo src/database/init-db.js com a(s) nova(s) tabela(s).
+
+Rode node src/database/init-db.js para criar a tabela no banco.
+
+Crie o novo Controller em src/controllers/ (ex: FinancialController.js).
+
+Crie o novo arquivo de Rotas em src/routes/ (ex: financialRoutes.js).
+
+Importe e use as novas rotas no arquivo src/app.js.
+
+Teste os novos endpoints com o Insomnia ou Postman.
